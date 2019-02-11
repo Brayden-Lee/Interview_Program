@@ -1,0 +1,14 @@
+class Solution {
+public:
+    bool Find(int target, vector<vector<int> > array) {
+        int n = array.size();
+        int m = array[0].size();
+        int i, j;
+        for (i = 0; i < n; i++)
+        {
+			if (count(array[i].begin(),array[i].end(),target))
+				return true;
+        }
+        return false;
+    }
+};

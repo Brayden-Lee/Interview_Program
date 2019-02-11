@@ -1,0 +1,26 @@
+#include <string>
+class Solution {
+public:
+	void replaceSpace(char *str,int length) {
+        string new_str;
+        int i = 0;
+        while(str[i] != '\0')
+        {
+            new_str.push_back(str[i]);
+            i++;
+        }
+        i = 0;
+        new_str.push_back('\0');
+        while(new_str[i] != '\0')
+        {
+            if (new_str[i] == ' ')
+                new_str.replace(i, 1, "%20");
+            i++;
+        }
+        i = 0;
+        for (auto ch : new_str)
+        {
+            str[i++] = ch;
+        }
+	}
+};

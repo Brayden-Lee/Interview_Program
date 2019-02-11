@@ -1,0 +1,38 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* reConstructBinaryTree(vector<int> pre,vector<int> vin) {
+        int pre_length = pre.size();
+        int vin_length = vin.size();
+        if (pre_length ==0 || vin_length == 0)
+            return NULL;
+        return subTree(pre, 0, pre_length - 1, vin, 0, vin_length - 1);
+    }
+    
+    TreeNode* subTree(vector<int> pre, int preStart, int preEnd, vector<int> vin, int vinStart, int vinEnd)
+    {
+        struct TreeNode *rootTree = (struct TreeNode*) malloc(sizeof(struct TreeNode));
+        rootTree->val = pre[preStart];
+        rootTree->left = NULL;
+        rootTree->right = NULL;
+        if (preStart == preEnd && vinStart == vinEnd && pre[preStart] == vin[vinStart])
+            return rootTree;
+        int rootIndex = vinStart;
+        while (vin[rootIndex] != pre[preStart])
+            rootIndex++;
+        int newLength = rootIndex - vinStart;
+        if (newLength > 0)
+            rootTree->left = subTree(pre, preStart + 1, preStart + newLength, vin, vinStart, rootIndex - 1);
+        if (vinEnd - rootIndex > 0)
+            rootTree->right = subTree(pre, preStart + newLength + 1, preEnd, vin, rootIndex + 1, vinEnd);
+        return rootTree;
+    }
+};
