@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int jumpFloor(int number) {
+    /*
+    解答：这种问题一般是有规律的，跳1级台阶，只有1种方法；跳2级台阶，有2种方法；跳3级台阶，有3种方法；跳4级台阶，有5种方法，依次下去，跳一个n级的台阶的方法数是跳n-1级台阶的方法数与跳n-2阶台阶的方法数的总和。这种思路可以用逆推去想，要跳上一个n级台阶，可以从n-1级台阶跳1级，也可以从n-2级台阶跳2级，这就相当于跳上n-1级台阶的方法加上跳上n-2级台阶的方法。
+    */
+        if (number == 1)
+            return 1;
+        if (number == 2)
+            return 2;
+        return jumpFloor(number - 1) + jumpFloor(number - 2);
+    }
+};

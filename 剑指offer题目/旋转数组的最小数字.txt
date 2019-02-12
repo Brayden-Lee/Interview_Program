@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int minNumberInRotateArray(vector<int> rotateArray) {
+        if (rotateArray.size() == 0)
+            return 0;
+        //sort(rotateArray.begin(), rotateArray.end());
+        //return rotateArray[0];
+        int low = 0;
+        int mid = low;
+        int high = rotateArray.size() - 1;
+        while (rotateArray[low] >= rotateArray[high])
+        {
+            if (high - low == 1)
+            {
+                mid = high;
+                break;
+            }
+            mid = (low + high) / 2;
+            if (rotateArray[low] == rotateArray[mid] && rotateArray[mid] == rotateArray[high])
+            {
+                return getMinInOrder(rotateArray, low, high);
+            }
+            if (rotateArray[mid] >= rotateArray[low])
+                low = mid;
+            else if (rotateArray[mid] <= rotateArray[high])
+                high = mid;
+        }
+        return rotateArray[mid];
+    }
+    
+    int getMinInOrder(vector<int> numbers, int low, int high)
+    {
+        int res = numbers[low];
+        for (int i = low + 1; i <= high; i++)
+        {
+            if (res > numbers[i])
+                res = numbers[i];
+        }
+        return res;
+    }
+};
