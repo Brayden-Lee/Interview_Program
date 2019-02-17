@@ -1,0 +1,23 @@
+class Solution {
+public:
+    double Power(double base, int exponent) {
+        // 考虑特殊情况，exponent为0 负数， 正数
+        //return pow(base, exponent);
+        if(base == 0)
+            return 0;
+        if(exponent == 0)
+            return 1;
+        double result = 1.0;
+        if(exponent>0){
+            for(int i=0;i<exponent;i++){
+                result *= base;
+            }
+        }else{
+            for(int i=0;i<(-1*exponent);i++){
+                result *=base;
+            }
+            result = 1/result;
+        }
+        return result;
+    }
+};

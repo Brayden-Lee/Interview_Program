@@ -1,0 +1,39 @@
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* ReverseList(ListNode* pHead) {
+        /*
+        // 递归
+        if (pHead == NULL || pHead->next == NULL)
+            return pHead;
+        ListNode *p;
+        p = ReverseList(pHead->next);
+        //再将当前节点设置为后面节点的后续节点
+        pHead->next->next = pHead;
+        pHead->next = NULL;
+        return p;
+        */
+        // 非递归
+        ListNode *pnow = pHead;
+        ListNode *pre = NULL;
+        ListNode *pnext = NULL;
+        ListNode *tail = NULL;
+        while (pnow != NULL)
+        {
+            pnext = pnow->next;
+            if (pnext == NULL)
+                tail = pnow;
+            pnow->next = pre;
+            pre = pnow;
+            pnow = pnext;
+        }
+        return tail;
+    }
+};
