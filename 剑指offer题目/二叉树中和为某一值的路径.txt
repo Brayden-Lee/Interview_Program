@@ -1,0 +1,39 @@
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    void dfsFind(TreeNode *root, int target, vector<vector<int> > &res, vector<int> &arr)
+    {
+        if (root->left == NULL && root->right == NULL) 
+        {
+            if(root->val == target)
+            {
+                arr.push_back(root->val);
+                res.push_back(arr);
+                arr.pop_back();
+            }
+            return;
+        }
+        arr.push_back(root->val);
+        if (root->left)
+            dfsFind(root->left, target - root->val, res, arr);
+        if (root->right)
+            dfsFind(root->right, target - root->val, res, arr);
+        arr.pop_back();
+    }
+    
+    vector<vector<int> > FindPath(TreeNode* root,int expectNumber) {
+        vector<vector<int> > res;
+        vector<int> arr;
+        if (root) dfsFind(root, expectNumber, res, arr);
+        return res;
+    }
+    
+};

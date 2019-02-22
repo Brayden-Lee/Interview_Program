@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<int> GetLeastNumbers_Solution(vector<int> input, int k) {
+        /*
+        int size = input.size();
+        vector<int> res;
+        if (size < k)
+            return res;
+        sort(input.begin(), input.end());
+        for (int i = 0; i < k; i++)
+            res.push_back(input[i]);
+        return res;
+        */
+        // multiset 红黑树的应用
+               // 特殊输入
+        if(input.size()<=0||k>input.size()) return vector<int>();
+
+        // 定义降序排列的集合res，用于存储结果
+        multiset<int, greater<int> > res;
+
+        // 定义遍历向量的迭代器ite，遍历向量vector
+        vector<int>::iterator cur_ite;
+        for(cur_ite = input.begin();cur_ite!=input.end();++cur_ite)
+        {
+            // 将前k个元素插入集合
+            if(res.size()<k)
+                res.insert(*cur_ite);
+            else
+            {
+                // 比较+删除+插入
+                if(*cur_ite<*(res.begin()))
+                {
+                    res.erase(res.begin());
+                    res.insert(*cur_ite);
+                }
+            }
+        }
+        return vector<int>(res.begin(),res.end());
+    }
+};
